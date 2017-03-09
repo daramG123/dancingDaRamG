@@ -23,10 +23,16 @@ public class asd {
 		BufferedReader br;
 		String url = "http://m.endic.naver.com/search.nhn?searchOption=all&query="+word+"&=";
 		Document doc = (Document) Jsoup.connect(url).get();
-		Elements elements = doc.select("p.desc");
-		
+		Elements elements = doc.select("a.h_word,ul.desc_lst,p.example_stc,p.example_mean");
+//		Elements elements = doc.select("span.autolink");
+		int cnt=0;
 		for (Element element : elements) {
+			if(element.toString().contains("h_word"))
+					cnt++;
+			if(cnt==2)
+				break;
 			System.out.println(element.text());
-		}
+		}System.out.println(url);
 	}
 }
+	
