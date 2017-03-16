@@ -24,22 +24,25 @@ public class dictionary {
 		String url = "http://m.endic.naver.com/search.nhn?searchOption=all&query=" + word + "&=";
 		Document doc = (Document) Jsoup.connect(url).get();
 		Elements elements;
-		Element eswt;
-		int i = 0;
-		elements = doc.select("a.h_word,ul.desc_lst>li,p.example_stc,p.example_mean");
-		int cnt = 0;
-		for (Element element : elements) {
-			if (element.toString().contains("h_word"))
-				cnt++;
-			if (cnt == 2)
-				break;
+		Elements eswt = doc.select("div.entry_search_word");
 
-			if (element.text().contains("발음듣기")) {
-				String stc = element.text().substring(0, element.text().length() - 4);
-				System.out.println(stc);
-			} else
-				System.out.println(element.text());
+		for(Element ele : eswt ) {
+			System.out.println();
+			elements = ele.select("a.h_word,ul.desc_lst>li,p.example_stc,p.example_mean");
+		
+			for (Element element : elements) {
+
+				if (element.text().contains("발음듣기")) {
+					String stc = element.text().substring(0, element.text().length() - 4);
+					System.out.println(stc);
+				} else
+					System.out.println(element.text());
+
+			}
+
+
 		}
+		System.out.println();
 		System.out.println("출처:" + url);
 	}
 }
