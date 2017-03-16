@@ -20,16 +20,15 @@ public class dictionary {
 		System.out.println("검색할 단어를 입력해주세요");
 		Scanner scan = new Scanner(System.in);
 		String word = scan.nextLine();
-		BufferedReader br;
 		String url = "http://m.endic.naver.com/search.nhn?searchOption=all&query=" + word + "&=";
 		Document doc = (Document) Jsoup.connect(url).get();
 		Elements elements;
 		Elements eswt = doc.select("div.entry_search_word");
 
-		for(Element ele : eswt ) {
+		for (Element ele : eswt) {
 			System.out.println();
 			elements = ele.select("a.h_word,ul.desc_lst>li,p.example_stc,p.example_mean");
-		
+
 			for (Element element : elements) {
 
 				if (element.text().contains("발음듣기")) {
@@ -39,7 +38,6 @@ public class dictionary {
 					System.out.println(element.text());
 
 			}
-
 
 		}
 		System.out.println();
